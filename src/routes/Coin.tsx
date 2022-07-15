@@ -85,6 +85,21 @@ const Tab = styled.span<{ isActive: boolean }>`
     }
 `;
 
+const BackButton = styled.div`
+    display: flex;
+    border-radius: 50px;
+    width: 48px;
+    height: 48px;
+    font-size: 30px;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    color: ${(props) => props.theme.textColor};
+    margin-top: 20px;
+`;
+
 interface RouteState {
     state: {
         name: string;
@@ -117,6 +132,10 @@ function Coin() {
                         : infoData?.name}
                 </title>
             </Helmet>
+            <Link to={`/`}>
+                <BackButton> &larr; </BackButton>
+            </Link>
+
             <Header>
                 <Title>
                     {state?.name
