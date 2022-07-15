@@ -40,6 +40,7 @@ function Chart() {
                         },
                     ]}
                     options={{
+                        theme: { mode: "dark" },
                         chart: {
                             height: 300,
                             width: 500,
@@ -57,9 +58,28 @@ function Chart() {
                         xaxis: {
                             axisBorder: { show: false },
                             axisTicks: { show: false },
-                            labels: { show: false },
+                            labels: {
+                                show: false,
+                                datetimeFormatter: { month: "mmm 'yy" },
+                            },
+                            categories: historicalData?.map(
+                                (price) => price.time_close
+                            ),
                         },
                         stroke: { curve: "smooth", width: 3 },
+                        fill: {
+                            type: "gradient",
+                            gradient: {
+                                gradientToColors: ["#0be881"],
+                                stops: [0, 100],
+                            },
+                        },
+                        colors: ["#0fbcf9"],
+                        tooltip: {
+                            y: {
+                                formatter: (value) => `$${value.toFixed(2)}`,
+                            },
+                        },
                     }}
                 />
             )}{" "}
