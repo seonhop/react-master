@@ -1,7 +1,10 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
 import Router from "./Router";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { HelmetProvider } from "react-helmet-async";
+import { lightTheme, darkTheme } from "./theme";
+import { useState } from "react";
+import styled from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -66,14 +69,40 @@ a {
 }
 `;
 
+const themes = {
+    light: lightTheme,
+    dark: darkTheme,
+};
+
+const Toggle = styled.button`
+    border: none;
+    width: auto;
+    overflow: visible;
+    border: ${(props) => props.theme.accentColor} 1px solid;
+    border-radius: 20px;
+    padding: 12px;
+    margin: 20px 0 0 20px;
+
+    background-color: ${(props) => props.theme.bgColor};
+    color: ${(props) => props.theme.accentColor};
+`;
+
 function App() {
+    const [theme, setTheme] = useState("light");
+    const onClick = () => {
+        theme === "light" ? setTheme("dark") : setTheme("light");
+    };
+
     return (
         <>
-            <GlobalStyle />
-            <HelmetProvider>
-                <Router />
-            </HelmetProvider>
-            <ReactQueryDevtools initialIsOpen={true} />
+            <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+                <GlobalStyle />
+                <HelmetProvider>
+                    <Toggle onClick={onClick}>Switch Theme</Toggle>
+                    <Router />
+                </HelmetProvider>
+                <ReactQueryDevtools initialIsOpen={true} />
+            </ThemeProvider>
         </>
     );
 }
