@@ -43,7 +43,7 @@ const Loader = styled.span`
 const Overview = styled.div`
     display: flex;
     justify-content: space-between;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: ${(props) => props.theme.blockColor};
     padding: 10px 20px;
     border-radius: 10px;
 `;
@@ -75,7 +75,7 @@ const Tab = styled.span<{ isActive: boolean }>`
     text-transform: uppercase;
     font-size: 12px;
     font-weight: 400;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: ${(props) => props.theme.blockColor};
     padding: 7px 0px;
     border-radius: 10px;
     color: ${(props) =>
@@ -94,7 +94,7 @@ const BackButton = styled.div`
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: ${(props) => props.theme.blockColor};
 
     color: ${(props) => props.theme.textColor};
     margin-top: 20px;
@@ -116,10 +116,12 @@ function Coin() {
         ["info", coinId],
         () => fetchCoinInfo(coinId)
     );
+
     const { isLoading: tickersLoading, data: tickersData } =
         useQuery<IPriceData>(["tickers", coinId], () =>
             fetchCoinTickers(coinId)
         );
+    console.log(tickersData);
     const loading = infoLoading || tickersLoading;
     return (
         <Container>
