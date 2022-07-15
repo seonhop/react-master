@@ -11,6 +11,7 @@ import { IInfoData } from "../defs/IInfoData";
 import { IPriceData } from "../defs/IPriceData";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
 import { useQuery } from "react-query";
+import { Helmet } from "react-helmet-async";
 
 interface RouteParams {
     coinId: string;
@@ -107,6 +108,15 @@ function Coin() {
     const loading = infoLoading || tickersLoading;
     return (
         <Container>
+            <Helmet>
+                <title>
+                    {state?.name
+                        ? state.name
+                        : loading
+                        ? "Loading..."
+                        : infoData?.name}
+                </title>
+            </Helmet>
             <Header>
                 <Title>
                     {state?.name

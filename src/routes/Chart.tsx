@@ -2,6 +2,7 @@ import { useOutletContext } from "react-router";
 import { fetchCoinHistory } from "../api";
 import { useQuery } from "react-query";
 import ApexChart from "react-apexcharts";
+import { Helmet } from "react-helmet-async";
 
 interface ChartProps {
     coinId: string;
